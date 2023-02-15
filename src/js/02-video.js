@@ -5,8 +5,8 @@ const iframeEl = document.querySelector('iframe');
 
 const vimeoTimeEl = 'vimeo-watching-time';
 
-const setWatchingTime = ({ second }) => {
-  localStorage.setItem(vimeoTimeEl, second);
+const setWatchingTime = ({ seconds }) => {
+  localStorage.setItem(vimeoTimeEl, seconds);
 };
 
 const player = new Player(iframeEl);
