@@ -7,7 +7,6 @@ const inputEl = document.querySelector('input');
 
 const formData = {};
 
-
 populateHandleInput();
 
 formEl.addEventListener('submit', onFormSubmit);
@@ -20,8 +19,8 @@ function onInputEl(event) {
 const savedMessage = localStorage.getItem(
   STORAGE_KEY,
   JSON.stringify(formData)
-  );
-  // const parsedMessage = JSON.parse(savedMessage);
+);
+// const parsedMessage = JSON.parse(savedMessage);
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -34,24 +33,22 @@ function onInputEl(event) {
   localStorage.setItem(STORAGE_KEY, message);
 }
 
- function load(key) {
-   try {
-     const serializedState = localStorage.getItem(key);
-     return serializedState === null ? undefined : JSON.parse(serializedState);
-   } catch (error) {
-     console.console.error(error.message);
-   }
- }
+function load(key) {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    
+  }
+}
 
 function populateHandleInput() {
   if (load(STORAGE_KEY)) {
     const outputForm = load(STORAGE_KEY);
     const formKeys = Object.keys(outputForm);
-    
+
     formKeys.map(element => {
       document.querySelector(`[name='${element}]`).value = outputForm[element];
     });
   }
 }
-
-
