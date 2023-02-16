@@ -3,12 +3,23 @@ import throttle from 'lodash.throttle';
 const STORAGE_KEY = 'feedback-form-state';
 
 const formEl = document.querySelector('.feedback-form');
-const textareaEl = document.querySelector('.feedback-form textarea');
+const inputEl = document.querySelector('input');
+
+const formData = {};
+
+const parsedMessage = JSONE.parse(savedMessage);
 
 formEl.addEventListener('submit', onFormSubmit);
-textareaEl.addEventListener('input', throttle(onTextareaInput, 500));
+inputEl.addEventListener('input', throttle(onInputEl, 500));
 
-textareaSave();
+function onInputEl(event) {
+  formData[event.target.name] = event.target.value;
+}
+
+const savedMessage = localStorage.getItem(
+  STORAGE_KEY,
+  JSONE.stringify(formData)
+);
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -16,14 +27,7 @@ function onFormSubmit(event) {
   localStorage.removeItem(STORAGE_KEY);
 }
 
-function onTextareaInput(event) {
+function onInputEl(event) {
   const message = event.target.value;
   localStorage.setItem(STORAGE_KEY, message);
-}
-
-function textareaSave() {
-  const savedMessage = localStorage.getItem(STORAGE_KEY);
-  if (savedMessage) {
-    textareaEl.value = savedMessage;
-  }
 }
