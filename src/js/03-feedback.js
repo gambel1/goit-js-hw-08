@@ -7,7 +7,9 @@ const inputEl = document.querySelector('input');
 
 const formData = {};
 
-const parsedMessage = JSONE.parse(savedMessage);
+const parsedMessage = JSON.parse(savedMessage);
+
+populateHandleInput();
 
 formEl.addEventListener('submit', onFormSubmit);
 inputEl.addEventListener('input', throttle(onInputEl, 500));
@@ -18,7 +20,7 @@ function onInputEl(event) {
 
 const savedMessage = localStorage.getItem(
   STORAGE_KEY,
-  JSONE.stringify(formData)
+  JSON.stringify(formData)
 );
 
 function onFormSubmit(event) {
@@ -30,4 +32,14 @@ function onFormSubmit(event) {
 function onInputEl(event) {
   const message = event.target.value;
   localStorage.setItem(STORAGE_KEY, message);
+}
+
+function populateHandleInput() {
+  if (load(STORAGE_KEY)) {
+    const outputForm = load(STORAGE_KEY);
+    const formKeys = Object.keys(outputForm);
+    formKeys.map(element => {
+      document.querySelector(`[name='${element}]`).value = outputForm[element];
+    });
+  }
 }
