@@ -27,9 +27,10 @@ function onFormSubmit(event) {
 function localStorageHandleData() {
   const handleData = JSON.parse(localStorage.getItem(STORAGE_KEY));
   if (handleData) {
-    formMessageEl.elements.email.value = formData.email = handleData?.email;
+    formMessageEl.elements.email.value = formData.email =
+      handleData.email || '';
     formMessageEl.elements.message.value = formData.message =
-      handleData?.message;
+      handleData.message || '';
   }
 }
 
